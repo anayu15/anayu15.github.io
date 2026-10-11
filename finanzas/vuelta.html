@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Finanzas · vuelta al Mac</title>
+<style>
+  body { font: 18px/1.5 system-ui, sans-serif; color: #1a1a1a; margin: 3em auto; max-width: 36em; padding: 0 1em; }
+  a { color: #0b5d4b; }
+</style>
+</head>
+<body>
+<p>Permiso recibido del banco. Volviendo al Mac…</p>
+<p>Si no pasa nada en unos segundos, <a id="enlace" href="http://localhost:8765/">pulsa aquí</a>: es la dirección local
+que está escuchando la orden <code>conectar</code> de finanzas, y solo funciona en el Mac donde se lanzó.</p>
+<script>
+  // La vuelta del banco llega aquí porque Enable Banking solo admite direcciones https; esta página no guarda nada:
+  // rebota al Mac con la misma consulta (code y state), donde la orden conectar la recoge (BAN-002 de finanzas).
+  var destino = "http://localhost:8765/" + window.location.search;
+  document.getElementById("enlace").href = destino;
+  window.location.replace(destino);
+</script>
+</body>
+</html>

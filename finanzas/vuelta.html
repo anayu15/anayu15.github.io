@@ -12,12 +12,16 @@
 </head>
 <body>
 <p>Permiso recibido del banco. Volviendo al Mac…</p>
-<p>Si no pasa nada en unos segundos, <a id="enlace" href="http://localhost:8765/">pulsa aquí</a>: es la dirección local
+<p>Si no pasa nada en unos segundos, <a id="enlace" href="http://localhost:8791/">pulsa aquí</a>: es la dirección local
 que está escuchando la orden <code>conectar</code> de finanzas, y solo funciona en el Mac donde se lanzó.</p>
 <script>
   // La vuelta del banco llega aquí porque Enable Banking solo admite direcciones https; esta página no guarda nada:
   // rebota al Mac con la misma consulta (code y state), donde la orden conectar la recoge (BAN-002 de finanzas).
-  var destino = "http://localhost:8765/" + window.location.search;
+  // El puerto al que rebotar viaja al final del state («<azar>.<puerto>»); sin él, el 8791.
+  var consulta = window.location.search;
+  var state = /(?:[?&])state=([^&]*)/.exec(consulta);
+  var puerto = state && /\.(\d{2,5})$/.exec(decodeURIComponent(state[1]));
+  var destino = "http://localhost:" + (puerto ? puerto[1] : "8791") + "/" + consulta;
   document.getElementById("enlace").href = destino;
   window.location.replace(destino);
 </script>
